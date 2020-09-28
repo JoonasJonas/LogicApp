@@ -2,13 +2,22 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "logicAppName": {
-      "value": NVIntegration
+
+ 
+    "azureblob_1_privacySetting": {
+      "value": "Private"
     },
-    {
-      "arm_MyAPIHost": {
-        "defaultValue": "https://myapi.com",
-        "type": "string"
+    "LogicAppName": {
+      "value": "NVisorRequests"
+    },
+    "azureblob_1_accessKey": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/512e81a9-a0ac-4012-b285-d2e933d63713/resourceGroups/Internal/providers/Microsoft.KeyVault/vaults/VideoStreamExpressApp1va"
+        },
+        "secretName": "adf567"
       }
     }
+  }
+
 }

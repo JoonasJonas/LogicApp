@@ -1,0 +1,13 @@
+﻿https://isvapi.netvisor.fi/getorder.nv?NetvisorKey=3&amp;DWFunction4&amp;ND_128271_66165&amp;2020-9-28 13:31:35.000&amp;FI&amp;1657207-0&amp;""&amp;YOUR_PRIVATE_KEY_HERE :: D0CB7532D8537C30DE326E0D40087769</Status>
+
+
+
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Root>
+  <ResponseStatus>
+    <Status>FAILED</Status>
+    <Status>AUTHENTICATION_FAILED :: URI-metodi ei kelpaa, katso dokumentaatio. Käytä MAC-tiivisteen laskentaan merkkijonoa: https://isvapi.netvisor.fi/customerlist.nv?NetvisorKey=3&amp;DWFunction4&amp;ND_128271_66165&amp;2020-09-28T08:14:56.0661592Z&amp;FI&amp;1657207-0&amp;4564d65e-49bb-46e3-88cf-add325247b34&amp;YOUR_PRIVATE_KEY_HERE :: 43A5009A4D992FF4F1628ACD54ECBC68</Status>
+    <TimeStamp>28.9.2020 11:15:09</TimeStamp>
+  </ResponseStatus>
+</Root>ei kelpaa, katso dokumentaatio. Käytä MAC-tiivisteen laskentaan merkkijonoa: https://isvapi.netvisor.fi/customerlist.nv?NetvisorKey=3&amp;DWFunction4&amp;ND_128271_66165&amp;2020-09-28T09:06:14.7122793Z&amp;FI&amp;1657207-0&amp;b8b13663-5165-4093-a67c-b48cbc40814b&amp;YOUR_PRIVATE_KEY_HERE :: 4D6FB69DC0D507FE8194A57CC6950E21</Status>

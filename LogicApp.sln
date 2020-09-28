@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "LogicApp", "LogicApp.deployproj", "{430FFC5E-A3F5-4201-96C3-0C29809FDA5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp4", "..\FunctionApp4\FunctionApp4.csproj", "{1C787D4E-E521-4494-9EFC-2273D8C11743}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionApp4", "..\FunctionApp4\FunctionApp4.csproj", "{1C787D4E-E521-4494-9EFC-2273D8C11743}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

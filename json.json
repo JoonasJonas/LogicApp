@@ -1,0 +1,48 @@
+﻿{
+  "OrganizationList": [
+    {
+      "OrgID": 1,
+      "properties": {
+        "CustomerPrivateKey": "BAFFF19DE754F2BCD811B04BEC8D4EB7",
+        "Organizationname": "Tempp0",
+        "PartnerPrivateKey": "9FB867E55CD8C8B84F97D9AAC643975E",
+        "XNetvisorAuthenticationCustomerId": "ND_128271_66165",
+        "XNetvisorAuthenticationPartnerId": "Pet_45848",
+        "XNetvisorAuthenticationSender": "DWFunction4",
+        "XNetvisorAuthenticationTimestamp": "",
+        "XNetvisorAuthenticationTransactionId": "",
+        "XNetvisorInterfaceLanguage": "FI",
+        "XNetvisorOrganisationID": "1657207-0",
+        "endpoints": [
+          "getorders.nv",
+          {
+            "params": "?NetvisorKey=3"
+          }
+        ],
+        "hash": ""
+      }
+    },
+    {
+      "OrgID": 2,
+      "properties": {
+        "CustomerPrivateKey": "",
+        "Organizationname": "Tempp1",
+        "PartnerPrivateKey": "",
+        "XNetvisorAuthenticationCustomerId": "",
+        "XNetvisorAuthenticationPartnerId": "",
+        "XNetvisorAuthenticationSender": "",
+        "XNetvisorAuthenticationTimestamp": "",
+        "XNetvisorAuthenticationTransactionId": "",
+        "XNetvisorInterfaceLanguage": "FI",
+        "XNetvisorOrganisationID": "",
+        "endpoints": [
+          "getorders.nv"   
+               
+           
+       
+        ],
+        "hash": ""
+      }
+    }
+  ]
+}
