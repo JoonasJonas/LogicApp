@@ -1,0 +1,397 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "metadata": {
+        "description": "Name of the Logic App."
+      }
+    },
+    "logicAppLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [
+        "[resourceGroup().location]",
+        "eastasia",
+        "southeastasia",
+        "centralus",
+        "eastus",
+        "eastus2",
+        "westus",
+        "northcentralus",
+        "southcentralus",
+        "northeurope",
+        "westeurope",
+        "japanwest",
+        "japaneast",
+        "brazilsouth",
+        "australiaeast",
+        "australiasoutheast",
+        "southindia",
+        "centralindia",
+        "westindia",
+        "canadacentral",
+        "canadaeast",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westus2",
+        "koreacentral",
+        "koreasouth",
+        "francecentral",
+        "francesouth",
+        "uaecentral",
+        "southafricanorth",
+        "southafricawest",
+        "switzerlandnorth"
+      ],
+      "metadata": {
+        "description": "Location of the Logic App."
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[parameters('logicAppName')]",
+      "type": "Microsoft.Logic/workflows",
+      "location": "[parameters('logicAppLocation')]",
+      "tags": {
+        "displayName": "LogicApp"
+      },
+      "apiVersion": "2016-06-01",
+      "properties": {
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "HTTP": {
+              "type": "Http",
+              "inputs": {
+                "method": "GET",
+                "uri": "https://isvapi.netvisor.fi/getorder.nv?NetvisorKey=3",
+                "headers": {
+                  "X-Netvisor-Authentication-Sende": "\"DwClient\"",
+                  "X-Netvisor-Authentication-CustomerId": "\"ND_128271_66165\"",
+                  "X-Netvisor-Authentication-Timestamp": "@{utcNow()}",
+                  "X-Netvisor-Interface-Language": "\"FI\"",
+                  "X-Netvisor-Organisation-ID": "\"1853882-9\"",
+                  "X-Netvisor-Authentication-TransactionId": "@{guid()}",
+                  "X-Netvisor-Authentication-MAC": "",
+                  "X-Netvisor-Authentication-PartnerId": "a"
+                }
+              },
+              "runAfter": {
+                "Compose": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "GenerateHash5": {
+              "type": "Function",
+              "inputs": {
+                "function": {
+                  "id": "/subscriptions/512e81a9-a0ac-4012-b285-d2e933d63713/resourceGroups/Internal/providers/Microsoft.Web/sites/katcherff/functions/GenerateHash5"
+                }
+              },
+              "runAfter": {
+                "Append_to_array_variable": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Append_to_array_variable": {
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "Org_Specifix",
+                "value": 7
+              },
+              "runAfter": {
+                "For_each_OrgId_entity": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Organisaatio_list_ini": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "Org_Specifix",
+                    "type": "string"
+                  }
+                ]
+              },
+              "runAfter": {
+                "For_each": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Set_variable": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Org_Specifix",
+                "value": ""
+              },
+              "runAfter": {
+                "Initialize_variable": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Compose": {
+              "type": "Compose",
+              "inputs": "",
+              "runAfter": {
+                "Append_to_array_variable_2": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Append_to_array_variable_2": {
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "Org_Specifix",
+                "value": "@variables('md5variable')"
+              },
+              "runAfter": {
+                "Append_to_string_variable": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Select": {
+              "type": "Select",
+              "inputs": {
+                "from": "@parameters()",
+                "select": ""
+              },
+              "runAfter": {}
+            },
+            "md5var_ini": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "md5variable",
+                    "type": "string"
+                  }
+                ]
+              },
+              "runAfter": {
+                "Organisaatio_list_ini": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Append_to_string_variable": {
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "md5variable",
+                "value": "@body('GenerateHash5')"
+              },
+              "runAfter": {
+                "GenerateHash5": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "For_each_OrgId_entity": {
+              "type": "Foreach",
+              "foreach": "@body('Select')",
+              "actions": {
+                "GenerateHash5_2": {
+                  "type": "Function",
+                  "inputs": {
+                    "body": "@items('For_each_OrgId_entity')",
+                    "function": {
+                      "id": "/subscriptions/512e81a9-a0ac-4012-b285-d2e933d63713/resourceGroups/Internal/providers/Microsoft.Web/sites/katcherff/functions/GenerateHash5"
+                    }
+                  },
+                  "runAfter": {}
+                },
+                "Set_variable_2": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Org_Specifix",
+                    "value": "1"
+                  },
+                  "runAfter": {
+                    "GenerateHash5_2": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "runAfter": {
+                "Set_variable": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "OrgIDList-JSON": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "OrgListJSON",
+                    "type": "object",
+                    "value": "  \"OrganizationList\": [\n    {\n      \"Organizationname\": \"Tempp0\",\n      \"Orgid\": 1,\n      \"properties\": {\n        \"CustomerPrivateKey\": \"\",\n        \"endpoints\": [ \"getorders.nv\", \"getpurchaseorders.nv\", \"getcustomers.nv\" ],\n        \"hash\": \"\",\n        \"PartnerPrivateKey\": \"\",\n        \"XNetvisorAuthenticationCustomerId\": \"\",\n        \"XNetvisorAuthenticationSender\": \"\",\n        \"XNetvisorAuthenticationTimestamp\": \"\",\n        \"XNetvisorAuthenticationTransactionId\": \"\",\n        \"XNetvisorInterfaceLanguage\": \"\",\n        \"XNetvisorOrganisationID\": \"\"\n      }\n    },\n    {\n      \"Organizationname\": \"Tempp1\",\n      \"Orgid\": 2,\n      \"properties\": {\n        \"hash\": \"\",\n        \"XNetvisorAuthenticationSender\": \"\",\n        \"XNetvisorAuthenticationCustomerId\": \"\",\n        \"XNetvisorAuthenticationTimestamp\": \"\",\n        \"XNetvisorInterfaceLanguage\": \"\",\n        \"XNetvisorOrganisationID\": \"\",\n        \"XNetvisorAuthenticationTransactionId\": \"\",\n        \"CustomerPrivateKey\": \"\",\n        \"PartnerPrivateKey\": \"\",\n\n        \"endpoints\": [ \"getorders.nv\", \"getcustomers.nv\" ]\n      }\n    }\n  ]"
+                  }
+                ]
+              },
+              "runAfter": {
+                "Select": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Initialize_variable": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "setOrgs",
+                    "type": "string"
+                  }
+                ]
+              },
+              "runAfter": {
+                "md5var_ini": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Parse_JSON": {
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@variables('OrgListJSON')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "OrganizationList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Organizationname": {
+                            "type": "string"
+                          },
+                          "Orgid": {
+                            "type": "integer"
+                          },
+                          "properties": {
+                            "type": "object",
+                            "properties": {
+                              "CustomerPrivateKey": {
+                                "type": "string"
+                              },
+                              "endpoints": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "hash": {
+                                "type": "string"
+                              },
+                              "PartnerPrivateKey": {
+                                "type": "string"
+                              },
+                              "XNetvisorAuthenticationCustomerId": {
+                                "type": "string"
+                              },
+                              "XNetvisorAuthenticationSender": {
+                                "type": "string"
+                              },
+                              "XNetvisorAuthenticationTimestamp": {
+                                "type": "string"
+                              },
+                              "XNetvisorAuthenticationTransactionId": {
+                                "type": "string"
+                              },
+                              "XNetvisorInterfaceLanguage": {
+                                "type": "string"
+                              },
+                              "XNetvisorOrganisationID": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "Organizationname",
+                          "Orgid",
+                          "properties"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "OrgIDList-JSON": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "staticResult": {
+                  "name": "Parse_JSON0",
+                  "staticResultOptions": "Enabled"
+                }
+              }
+            },
+            "For_each": {
+              "type": "Foreach",
+              "foreach": "",
+              "actions": {},
+              "runAfter": {
+                "For_each_2": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "For_each_2": {
+              "type": "Foreach",
+              "foreach": "@body('Parse_JSON')?['OrganizationList']",
+              "actions": {
+                "Compose_2": {
+                  "type": "Compose",
+                  "inputs": "",
+                  "runAfter": {}
+                }
+              },
+              "runAfter": {
+                "Parse_JSON": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "parameters": {},
+          "triggers": {
+            "Recurrence": {
+              "type": "recurrence",
+              "recurrence": {
+                "frequency": "Hour",
+                "interval": 1
+              }
+            }
+          },
+          "contentVersion": "1.0.0.0",
+          "outputs": {},
+          "staticResults": {
+            "Parse_JSON0": {
+              "status": "Succeeded"
+            }
+          }
+        },
+        "parameters": {}
+      }
+    }
+  ],
+  "outputs": {}
+}
