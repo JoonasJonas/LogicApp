@@ -27,9 +27,11 @@
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <Content Include="LogicApp.json" />
-    <Content Include="LogicApp.parameters.json" />
+    <Content Include="OBSLogicApp.json" />
+    <Content Include="XLogicApp.parameters.json" />
     <None Include="json.json" />
+    <None Include="packages.config" />
+    <None Include="XogicApp.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>

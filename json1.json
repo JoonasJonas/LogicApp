@@ -1,0 +1,128 @@
+{
+  "?xml": {
+    "@version": "1.0",
+    "@encoding": "utf-8",
+    "@standalone": "yes"
+  },
+  "Root": {
+    "ResponseStatus": {
+      "Status": "OK",
+      "TimeStamp": "6.10.2020 14:50:24"
+    },
+    "Vouchers": {
+      "Voucher": [
+        {
+          "@Status": "valid",
+          "NetvisorKey": "57902",
+          "VoucherDate": "31.8.2020",
+          "VoucherNumber": "8",
+          "VoucherDescription": "ALV, 082020",
+          "VoucherClass": "AT Järjestelmän muodostamat",
+          "LinkedSourceNetvisorKey": {
+            "@type": ""
+          },
+          "VoucherNetvisorURI": "https://suomi.netvisor.fi/evo/external-drill-down/single-voucher/13646/57902",
+          "VoucherLine": [
+            {
+              "NetvisorKey": "296249",
+              "LineSum": "-104544,75",
+              "Description": "Vähennettävä ALV 082020",
+              "AccountNumber": "1763",
+              "VatPercent": "0",
+              "VatCode": null
+            },
+            {
+              "NetvisorKey": "296250",
+              "LineSum": "-0,07",
+              "Description": "Pyöristysero ALV-laskelmaan 082020",
+              "AccountNumber": "8570",
+              "VatPercent": "0",
+              "VatCode": null
+            },
+            {
+              "NetvisorKey": "296251",
+              "LineSum": "105244,59",
+              "Description": "Suoritettava ALV 082020",
+              "AccountNumber": "2939",
+              "VatPercent": "0",
+              "VatCode": null
+            },
+            {
+              "NetvisorKey": "296252",
+              "LineSum": "-699,77",
+              "Description": "Maksettava ALV 082020",
+              "AccountNumber": "2948",
+              "VatPercent": "0",
+              "VatCode": null
+            }
+          ]
+        },
+        {
+          "@Status": "valid",
+          "NetvisorKey": "57107",
+          "VoucherDate": "31.8.2020",
+          "VoucherNumber": "92",
+          "VoucherDescription": "Palkkayhteenveto 1.8.2020 - 31.8.2020, Tuntipalkkalaiset, teknologiateollisuus",
+          "VoucherClass": "PLK Palkat",
+          "LinkedSourceNetvisorKey": {
+            "@type": ""
+          },
+          "VoucherNetvisorURI": "https://suomi.netvisor.fi/evo/external-drill-down/single-voucher/13646/57107",
+          "VoucherLine": [
+            {
+              "NetvisorKey": "292170",
+              "LineSum": "-31400,01",
+              "Description": "Palkkayhteenveto 1.8.2020 - 31.8.2020, Tuntipalkkalaiset, teknologiateollisuus",
+              "AccountNumber": "1751",
+              "VatPercent": "0",
+              "VatCode": "-"
+            },
+            {
+              "NetvisorKey": "292171",
+              "LineSum": "-26967,32",
+              "Description": "Palkkayhteenveto 1.8.2020 - 31.8.2020, Tuntipalkkalaiset, teknologiateollisuus",
+              "AccountNumber": "2921",
+              "VatPercent": "0",
+              "VatCode": "-"
+            },
+            {
+              "NetvisorKey": "292172",
+              "LineSum": "-3725,26",
+              "Description": "Palkkayhteenveto 1.8.2020 - 31.8.2020, Tuntipalkkalaiset, teknologiateollisuus",
+              "AccountNumber": "2933",
+              "VatPercent": "0",
+              "VatCode": "-"
+            },
+            {
+              "NetvisorKey": "292173",
+              "LineSum": "-73005,28",
+              "Description": "Palkkayhteenveto 1.8.2020 - 31.8.2020, Tuntipalkkalaiset, teknologiateollisuus",
+              "AccountNumber": "2961",
+              "VatPercent": "0",
+              "VatCode": "-"
+            },
+            {
+              "NetvisorKey": "292174",
+              "LineSum": "210,77",
+              "Description": "Palkkayhteenveto 1.8.2020 - 31.8.2020, Tuntipalkkalaiset, teknologiateollisuus",
+              "AccountNumber": "5000",
+              "VatPercent": "0",
+              "VatCode": "-",
+              "Dimension": [
+                {
+                  "DimensionName": "Työnumero",
+                  "DimensionItem": "5310 Työnjohto ja tukipalvelut [C1]"
+                },
+                {
+                  "DimensionName": "Vastuu",
+                  "DimensionItem": "10013 Kittilän kultakaivos, purkuputki"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+}

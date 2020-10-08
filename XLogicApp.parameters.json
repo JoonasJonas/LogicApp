@@ -8,7 +8,7 @@
       "value": "Private"
     },
     "LogicAppName": {
-      "value": "NVisorRequests"
+      "value": "NVisorRequests2SQL"
     },
     "azureblob_1_accessKey": {
       "reference": {

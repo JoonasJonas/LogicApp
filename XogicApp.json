@@ -1,0 +1,111 @@
+﻿{
+  "resources": [
+    {
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "For_each_3": {
+              "type": "Foreach",
+              "foreach": "@triggerBody()",
+              "actions": {
+                "Get_blob_content": {
+                  "type": "ApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connection": {
+                        "name": "@parameters('$connections')['azureblob_1']['connectionId']"
+                      }
+                    },
+                    "method": "get",
+                    "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent('/hierar/00/1657207-0_2020-09-29T00:25:13.7593040*.JSON'))}/content",
+                    "queries": {
+                      "inferContentType": true
+                    }
+                  },
+                  "runAfter": {},
+                  "metadata": {
+                    "JTJmaGllcmFyJTJmMDAlMmYxNjU3MjA3LTBfMjAyMC0wOS0yOVQwMCUzYTI1JTNhMTMuNzU5MzA0MC54bWw=": "/hierar/00/1657207-0_2020-09-29T00:25:13.7593040.xml"
+                  }
+                }
+
+              }
+            },
+            "parameters": {
+              "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+              }
+            },
+            "triggers": {
+              "When_a_blob_is_added_or_modified_(properties_only)": {
+                "type": "ApiConnection",
+                "inputs": {
+                  "host": {
+                    "connection": {
+                      "name": "@parameters('$connections')['azureblob_1']['connectionId']"
+                    }
+                  },
+                  "method": "get",
+                  "path": "/datasets/default/triggers/batch/onupdatedfile",
+                  "queries": {
+                    "folderId": "JTJmaGllcmFyJTJmMDAlMmY=",
+                    "maxFileCount": 1
+                  }
+                },
+                "recurrence": {
+                  "frequency": "Minute",
+                  "interval": 30
+                },
+                "metadata": {
+                  "JTJmaGllcmFyJTJmMDAlMmY=": "/hierar/00/"
+                },
+                "splitOn": "@triggerBody()"
+              }
+            },
+            "contentVersion": "1.0.0.0",
+            "outputs": {}
+          },
+          "parameters": {
+            "$connections": {
+              "value": {
+                "azureblob_1": {
+                  "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azureblob')]",
+                  "connectionId": "[resourceId('Microsoft.Web/connections', parameters('azureblob_1_Connection_Name'))]",
+                  "connectionName": "[parameters('azureblob_1_Connection_Name')]"
+                }
+              }
+            }
+          }
+        },
+        "name": "[parameters('LogicAppName')]",
+        "type": "Microsoft.Logic/workflows",
+        "location": "[parameters('LogicAppLocation')]",
+        "tags": {
+          "displayName": "LogicApp"
+        },
+        "apiVersion": "2016-06-01",
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/connections', parameters('azureblob_1_Connection_Name'))]"
+        ]
+      },
+      {
+        "type": "MICROSOFT.WEB/CONNECTIONS",
+        "apiVersion": "2018-07-01-preview",
+        "name": "[parameters('azureblob_1_Connection_Name')]",
+        "location": "ukwest",
+        "properties": {
+          "api": {
+            "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', 'ukwest', '/managedApis/', 'azureblob')]"
+          },
+          "displayName": "[parameters('azureblob_1_Connection_DisplayName')]",
+          "parameterValues": {
+            "accountName": "[parameters('azureblob_1_accountName')]",
+            "accessKey": "[parameters('azureblob_1_accessKey')]",
+            "privacySetting": "[parameters('azureblob_1_privacySetting')]"
+          }
+        }
+      }
+  ]
+}
